@@ -60,6 +60,12 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
         SELECT * FROM osm_transportation_name_linestring
         WHERE zoom_level >= 14
 
+        UNION ALL
+        SELECT geometry, osm_id, name, name_en, name_de, ref, highway, null as network, z_order 
+        FROM osm_highway_polygon
+        -- We do not want underground pedestrian areas for now
+        WHERE zoom_level >= 10 AND is_area AND COALESCE(layer, 0) >= 0        
+
     ) AS zoom_levels
     WHERE geometry && bbox
     ORDER BY z_order ASC;

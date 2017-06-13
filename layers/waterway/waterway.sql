@@ -22,23 +22,23 @@ CREATE OR REPLACE VIEW waterway_z6 AS (
 
 -- etldoc: osm_important_waterway_linestring_gen3 ->  waterway_z9
 CREATE OR REPLACE VIEW waterway_z9 AS (
-    SELECT geometry, 'river'::text AS class, name, name_en, name_de FROM osm_important_waterway_linestring_gen3
+    SELECT geometry, waterway AS class, name, name_en, name_de FROM osm_waterway_linestring_gen3
 );
 
 -- etldoc: osm_important_waterway_linestring_gen2 ->  waterway_z10
 CREATE OR REPLACE VIEW waterway_z10 AS (
-    SELECT geometry, 'river'::text AS class, name, name_en, name_de FROM osm_important_waterway_linestring_gen2
+    SELECT geometry, waterway AS class, name, name_en, name_de FROM osm_waterway_linestring_gen2
 );
 
 -- etldoc:osm_important_waterway_linestring_gen1 ->  waterway_z11
 CREATE OR REPLACE VIEW waterway_z11 AS (
-    SELECT geometry, 'river'::text AS class, name, name_en, name_de FROM osm_important_waterway_linestring_gen1
+    SELECT geometry, waterway AS class, name, name_en, name_de FROM osm_waterway_linestring_gen1
 );
 
 -- etldoc: osm_waterway_linestring ->  waterway_z12
 CREATE OR REPLACE VIEW waterway_z12 AS (
     SELECT geometry, waterway AS class, name, name_en, name_de FROM osm_waterway_linestring
-    WHERE waterway IN ('river', 'canal')
+    WHERE waterway IN ('river', 'canal', 'stream')
 );
 
 -- etldoc: osm_waterway_linestring ->  waterway_z13
@@ -69,10 +69,12 @@ RETURNS TABLE(geometry geometry, class text, name text, name_en text, name_de te
         SELECT * FROM waterway_z4 WHERE zoom_level BETWEEN 4 AND 5
         UNION ALL
         -- etldoc: waterway_z6 ->  layer_waterway:z6_8
-        SELECT * FROM waterway_z6 WHERE zoom_level BETWEEN 6 AND 8
+        -- SELECT * FROM waterway_z6 WHERE zoom_level BETWEEN 6 AND 8
+        SELECT * FROM waterway_z6 WHERE zoom_level BETWEEN 6 AND 7
         UNION ALL
         -- etldoc: waterway_z9 ->  layer_waterway:z9
-        SELECT * FROM waterway_z9 WHERE zoom_level = 9
+        -- SELECT * FROM waterway_z9 WHERE zoom_level = 9
+        SELECT * FROM waterway_z9 WHERE zoom_level BETWEEN 8 AND 9
         UNION ALL
         -- etldoc: waterway_z10 ->  layer_waterway:z10
         SELECT * FROM waterway_z10 WHERE zoom_level = 10

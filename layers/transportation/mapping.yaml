@@ -190,14 +190,13 @@ tables:
     - name: highway
       key: highway
       type: string
-    - name: z_order
-      type: wayzorder
-    - name: layer
-      key: layer
-      type: integer
-    - name: is_area
-      key: area
-      type: bool
+    - *ref
+    - *z_order
+    - *layer
+    - *name
+    - *name_en
+    - *name_de
+    - *area
     mapping:
       highway:
       - pedestrian

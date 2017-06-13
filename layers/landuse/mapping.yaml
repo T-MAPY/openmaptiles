@@ -65,4 +65,12 @@ tables:
       - industrial
       - retail
       leisure:
+      - miniature_golf
+      - park
+      - pitch
+      - playground
+      - sports_centre
       - stadium
+      - swimming_pool
+      - track
+      - water_park

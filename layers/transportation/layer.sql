@@ -83,8 +83,8 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             NULL::boolean AS is_ramp, NULL::boolean AS is_oneway,
             z_order
         FROM osm_highway_linestring_gen2
-        WHERE zoom_level BETWEEN 9 AND 10
-          AND st_length(geometry)>zres(11)
+        WHERE zoom_level = 9
+          AND st_length(geometry)>zres(10)
         UNION ALL
 
         -- etldoc: osm_highway_linestring_gen1  ->  layer_transportation:z11
@@ -95,8 +95,8 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             NULL::boolean AS is_ramp, NULL::boolean AS is_oneway,
             z_order
         FROM osm_highway_linestring_gen1
-        WHERE zoom_level = 11
-          AND st_length(geometry)>zres(12)
+        WHERE zoom_level = 10
+          AND st_length(geometry)>zres(11)
         UNION ALL
 
         -- etldoc: osm_highway_linestring       ->  layer_transportation:z12
@@ -108,11 +108,12 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
         FROM osm_highway_linestring
         WHERE NOT is_area AND (
-            zoom_level = 12 AND (
+            zoom_level BETWEEN 11 AND 12 AND (
                 highway_class(highway) NOT IN ('track', 'path', 'minor')
                 OR highway IN ('unclassified', 'residential')
             )
-            OR zoom_level = 13 AND highway_class(highway) NOT IN ('track', 'path')
+            -- OR zoom_level = 13 AND highway_class(highway) NOT IN ('track', 'path')
+            OR zoom_level = 13
             OR zoom_level >= 14
         )
         UNION ALL
@@ -123,7 +124,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             service_value(service) AS service,
             is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
         FROM osm_railway_linestring_gen2
-        WHERE zoom_level = 11 AND (railway='rail' AND service = '')
+        WHERE zoom_level BETWEEN 9 AND 11 AND (railway='rail' AND service = '')
         UNION ALL
 
         -- etldoc: osm_railway_linestring_gen1  ->  layer_transportation:z12
@@ -139,7 +140,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
         -- etldoc: osm_railway_linestring       ->  layer_transportation:z14_
         SELECT
             osm_id, geometry, NULL AS highway, railway,
-            service_value(service) AS service,
+            service_value(CASE railway WHEN 'narrow_gauge' THEN 'spur' ELSE service END) AS service,
             is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
         FROM osm_railway_linestring
         WHERE zoom_level = 13 AND (railway='rail' AND service = '')

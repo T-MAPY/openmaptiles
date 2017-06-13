@@ -2,17 +2,17 @@ generalized_tables:
   # etldoc: imposm3 -> osm_waterway_linestring_gen3
   waterway_linestring_gen3:
     source: waterway_linestring_gen2
-    sql_filter: waterway IN ('river')
+    sql_filter: waterway IN ('river', 'canal')
     tolerance: ZRES9
   # etldoc: imposm3 -> osm_waterway_linestring_gen2
   waterway_linestring_gen2:
     source: waterway_linestring_gen1
-    sql_filter: waterway IN ('river')
+    sql_filter: waterway IN ('river', 'canal') OR (waterway IN ('stream') AND name <> '')
     tolerance: ZRES10
   # etldoc: imposm3 -> osm_waterway_linestring_gen1
   waterway_linestring_gen1:
     source: waterway_linestring
-    sql_filter: waterway IN ('river')
+    sql_filter: waterway IN ('river', 'canal') OR (waterway IN ('stream') AND name <> '')
     tolerance: ZRES11
 tables:
   # etldoc: imposm3 -> osm_waterway_linestring

@@ -35,9 +35,9 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
       )::int AS gridrank
         FROM osm_city_point
         WHERE geometry && bbox
-          AND ((zoom_level = 8 AND place <= 'town'::city_place
-            OR (zoom_level BETWEEN 9 AND 10 AND place <= 'village'::city_place)
-
+          AND ((zoom_level = 7 AND place <= 'town'::city_place
+            OR (zoom_level BETWEEN 8 AND 10 AND place <= 'village'::city_place)
+            
             OR (zoom_level BETWEEN 11 AND 13 AND place <= 'suburb'::city_place)
             OR (zoom_level >= 14)
           ))
