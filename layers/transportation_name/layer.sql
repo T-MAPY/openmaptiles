@@ -62,7 +62,10 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
         WHERE zoom_level >= 14
 
         UNION ALL
-        SELECT geometry, osm_id, name, name_en, name_de, ref, highway, null as network, z_order 
+        SELECT geometry, osm_id, name, name_en, name_de, 
+            get_basic_names(delete_empty_keys(hstore(ARRAY['name',name,'name:en',name_en,'name:de',name_de])), geometry)
+                || delete_empty_keys(hstore(ARRAY['name',name,'name:en',name_en,'name:de',name_de]))
+                AS "tags", ref, highway, null as network, z_order 
         FROM osm_highway_polygon
         -- We do not want underground pedestrian areas for now
         WHERE zoom_level >= 10 AND is_area AND COALESCE(layer, 0) >= 0        
