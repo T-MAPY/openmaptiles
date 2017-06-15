@@ -9,7 +9,11 @@ RETURNS TABLE(geometry geometry, class text) AS $$
         -- etldoc:  osm_aeroway_linestring -> layer_aeroway:z13
         -- etldoc:  osm_aeroway_linestring -> layer_aeroway:z14_
         SELECT geometry, aeroway
-        FROM osm_aeroway_linestring WHERE zoom_level >= 11
+        FROM osm_aeroway_linestring WHERE zoom_level >= 9
+        UNION ALL
+        -- etldoc:  osm_aeroway_polygon_gen2 -> layer_aeroway:z12
+        SELECT geometry, aeroway
+        FROM osm_aeroway_polygon_gen3 WHERE zoom_level BETWEEN 9 AND 11
         UNION ALL
         -- etldoc:  osm_aeroway_polygon_gen2 -> layer_aeroway:z12
         SELECT geometry, aeroway

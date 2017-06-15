@@ -13,7 +13,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
     FROM osm_city_point
     WHERE geometry && bbox
       AND ((zoom_level = 2 AND "rank" = 1)
-        OR (zoom_level BETWEEN 3 AND 7 AND "rank" <= zoom_level + 1)
+        OR (zoom_level BETWEEN 3 AND 5 AND "rank" <= zoom_level + 1)
       )
     UNION ALL
     SELECT osm_id, geometry, name,
@@ -31,21 +31,23 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
       place, "rank", capital,
       row_number() OVER (
         PARTITION BY LabelGrid(geometry, 128 * pixel_width)
-        ORDER BY "rank" ASC NULLS LAST,
-        place ASC NULLS LAST,
+        ORDER BY 
+        "rank" ASC NULLS LAST,
         population DESC NULLS LAST,
+        place ASC NULLS LAST,
         length(name) ASC
       )::int AS gridrank
         FROM osm_city_point
         WHERE geometry && bbox
-          AND ((zoom_level = 7 AND place <= 'town'::city_place
+          AND ((zoom_level BETWEEN 6 AND 7 AND place <= 'town'::city_place
             OR (zoom_level BETWEEN 8 AND 10 AND place <= 'village'::city_place)
             
             OR (zoom_level BETWEEN 11 AND 13 AND place <= 'suburb'::city_place)
             OR (zoom_level >= 14)
           ))
     ) AS ranked_places
-    WHERE (zoom_level = 8 AND (gridrank <= 4 OR "rank" IS NOT NULL))
+    WHERE (zoom_level BETWEEN 6 AND 7 AND (gridrank <= 2 OR "rank" IS NOT NULL))
+       OR (zoom_level = 8 AND (gridrank <= 4 OR "rank" IS NOT NULL))
        OR (zoom_level = 9 AND (gridrank <= 8 OR "rank" IS NOT NULL))
        OR (zoom_level = 10 AND (gridrank <= 12 OR "rank" IS NOT NULL))
        OR (zoom_level BETWEEN 11 AND 12 AND (gridrank <= 14 OR "rank" IS NOT NULL))
