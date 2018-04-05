@@ -11,7 +11,7 @@ export $(cat .env | xargs)
 #OSMDATA=europe
 export OSMDATA="europe"
 export OSMFOLDER=""
-# export OSMBBOX="8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322"
+export OSMBBOX="8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322"
 
 /usr/local/bin/docker-compose run --rm openmaptiles-tools make clean
 /usr/local/bin/docker-compose run --rm openmaptiles-tools make
