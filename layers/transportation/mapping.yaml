@@ -304,6 +304,10 @@ tables:
     - *layer
     - *level
     - *indoor
+    - *ref
+    - *name
+    - *name_en
+    - *name_de
     - name: is_area
       key: area
       type: bool
