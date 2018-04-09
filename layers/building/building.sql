@@ -80,7 +80,7 @@ RETURNS TABLE(geometry geometry, osm_id bigint, render_height int, render_min_he
             osm_id, geometry,
             NULL::int AS render_height, NULL::int AS render_min_height
         FROM osm_building_polygon_gen1
-        WHERE zoom_level = 13 AND geometry && bbox
+        WHERE zoom_level = 12 AND geometry && bbox
         UNION ALL
         -- etldoc: osm_building_polygon -> layer_building:z14_
         SELECT DISTINCT ON (osm_id)
@@ -90,7 +90,7 @@ RETURNS TABLE(geometry geometry, osm_id bigint, render_height int, render_min_he
         osm_all_buildings
         WHERE
             (levels IS NULL OR levels < 1000) AND
-            zoom_level >= 14 AND geometry && bbox
+            zoom_level >= 13 AND geometry && bbox
     ) AS zoom_levels
     ORDER BY render_height ASC, ST_YMin(geometry) DESC;
 $$ LANGUAGE SQL IMMUTABLE;

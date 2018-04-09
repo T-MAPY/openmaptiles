@@ -116,8 +116,8 @@ indoor INT) AS $$
             NULL::int AS layer, NULL::int AS level, NULL::boolean AS indoor,
             z_order
         FROM osm_highway_linestring_gen2
-        WHERE zoom_level BETWEEN 9 AND 10
-          AND st_length(geometry)>zres(11)
+        WHERE zoom_level = 9
+          AND st_length(geometry)>zres(10)
         UNION ALL
 
         -- etldoc: osm_highway_linestring_gen1  ->  layer_transportation:z11
@@ -131,8 +131,8 @@ indoor INT) AS $$
             NULL::int AS layer, NULL::int AS level, NULL::boolean AS indoor,
             z_order
         FROM osm_highway_linestring_gen1
-        WHERE zoom_level = 11
-          AND st_length(geometry)>zres(12)
+        WHERE zoom_level = 10
+          AND st_length(geometry)>zres(11)
         UNION ALL
 
         -- etldoc: osm_highway_linestring       ->  layer_transportation:z12
@@ -155,12 +155,12 @@ indoor INT) AS $$
             z_order
         FROM osm_highway_linestring
         WHERE NOT is_area AND (
-            zoom_level = 12 AND (
+            zoom_level BETWEEN 11 AND 12 AND (
                 highway_class(highway, public_transport) NOT IN ('track', 'path', 'minor')
                 OR highway IN ('unclassified', 'residential')
             )
             OR zoom_level = 13
-                AND highway_class(highway, public_transport) NOT IN ('track', 'path')
+                -- AND highway_class(highway, public_transport) NOT IN ('track', 'path')
             OR zoom_level >= 14
         )
         UNION ALL

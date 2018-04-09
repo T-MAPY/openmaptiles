@@ -33,7 +33,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
     'lake'::text AS class
     FROM osm_water_point
     WHERE geometry && bbox AND (
-        (zoom_level BETWEEN 9 AND 13 AND area > 70000*2^(20-zoom_level))
+        (zoom_level BETWEEN 9 AND 13 AND area > 70000*2^(20-zoom_level-2))
         OR (zoom_level >= 14)
     )
     -- etldoc: osm_marine_point ->  layer_water_name:z0_8

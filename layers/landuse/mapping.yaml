@@ -72,6 +72,12 @@ tables:
       - stadium
       - pitch
       - playground
+      - miniature_golf
+      - park
+      - sports_centre
+      - swimming_pool
+      - track
+      - water_park
       tourism:
       - theme_park
       - zoo

@@ -75,6 +75,7 @@ tables:
     mapping:
       landuse:
       - reservoir
+      - basin
       natural:
       - water
       - bay

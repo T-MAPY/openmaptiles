@@ -6,7 +6,7 @@ RETURNS TABLE(geometry geometry, class text, ref text) AS $$
     SELECT geometry, aeroway AS class, ref FROM (
         -- etldoc:  osm_aeroway_linestring_gen3 -> layer_aeroway:z10
         SELECT geometry, aeroway, ref
-        FROM osm_aeroway_linestring_gen3 WHERE zoom_level = 10
+        FROM osm_aeroway_linestring_gen3 WHERE zoom_level >= 9
         UNION ALL
         -- etldoc:  osm_aeroway_linestring_gen2 -> layer_aeroway:z11
         SELECT geometry, aeroway, ref
