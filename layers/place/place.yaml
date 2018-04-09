@@ -60,8 +60,9 @@ layer:
     geometry_field: geometry
     key_field: osm_id
     key_field_as_attribute: no
-    query: (SELECT osm_id, geometry, name, name_en, name_de, {name_languages}, class, rank, capital, iso_a2 FROM layer_place(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT osm_id, geometry, name, name_en, name_de, {name_languages}, class, rank, capital, iso_a2, c5514(geometry) as c5514 FROM layer_place(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
+  - ../../tmapy/c5514.sql
   - ./types.sql
   - ./capital.sql
   - ./city.sql
