@@ -1,0 +1,67 @@
+{
+    "options": {
+      "paths": {
+        "root": "/tmapy/tileserver-gl",
+        "fonts": "fonts",
+        "styles": "styles",
+        "mbtiles": "/data"
+      }
+    },
+    "styles": {
+      "klokantech-basic": {
+        "style": "klokantech-basic/style.json",
+        "tilejson": {
+          "bounds": [
+            -180,
+            -85.0511,
+            180,
+            85.0511
+          ]
+        }
+      },
+      "osm-bright": {
+        "style": "osm-bright/style.json",
+        "tilejson": {
+          "bounds": [
+            -180,
+            -85.0511,
+            180,
+            85.0511
+          ]
+        }
+      },
+      "tmcejala": {
+        "style": "tmcejala/style.json",
+        "serve_rendered": true,
+        "serve_data": true,
+        "tilejson": {
+          "type": "overlay",
+          "bounds": [8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322]
+        }
+      },      
+      "tmce": {
+        "style": "tmce/style.json",
+        "serve_rendered": true,
+        "serve_data": true,
+        "tilejson": {
+          "type": "overlay",
+          "bounds": [8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322]
+        }
+      },
+      "tmce5514": {
+        "style": "tmce5514/style.json",
+        "serve_rendered": true,
+        "serve_data": true,
+        "tilejson": {
+          "type": "overlay",
+          "bounds": [8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322]
+        }
+      }
+    },
+    "data": {
+      "v3": {
+        "mbtiles": "tiles.mbtiles"
+      }
+    }
+  }
+  

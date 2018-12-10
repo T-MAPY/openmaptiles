@@ -1,0 +1,23 @@
+{
+  "city-11": {
+    "height": 11,
+    "pixelRatio": 1,
+    "width": 11,
+    "x": 0,
+    "y": 0
+  },
+  "capital-city-11": {
+    "height": 11,
+    "pixelRatio": 1,
+    "width": 11,
+    "x": 11,
+    "y": 0
+  },
+  "town-11": {
+    "height": 11,
+    "pixelRatio": 1,
+    "width": 11,
+    "x": 22,
+    "y": 0
+  }
+}
