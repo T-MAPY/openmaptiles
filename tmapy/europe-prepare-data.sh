@@ -8,10 +8,6 @@ set -x
 
 export $(cat .env | xargs)
 
-export OSMDATA="europe"
-export OSMFOLDER=""
-export OSMBBOX="8.437507154468175,47.04018649584206,25.312494513946003,52.48277752591322"
-
 mkdir -p ./data
 
 if [ -f ./data/${OSMDATA}-latest.osm.pbf.backup ]; then
@@ -53,6 +49,6 @@ services:
       BBOX: "$lon_min,$lat_min,$lon_max,$lat_max"
       OSM_MAX_TIMESTAMP : "$timestamp_max"
       OSM_AREA_NAME: "$OSMDATA"
-      MIN_ZOOM: "$QUICKSTART_MIN_ZOOM"
-      MAX_ZOOM: "$QUICKSTART_MAX_ZOOM"
+      MIN_ZOOM: "$MIN_ZOOM"
+      MAX_ZOOM: "$MAX_ZOOM"
 EOM
